@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WARRATYI // CORE ENGINE CONTROL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { background-color: #050505; color: #a3a3a3; font-family: ui-mono, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+        input:focus, textarea:focus, select:focus { outline: none; border-color: #525252; box-shadow: 0 0 10px rgba(255,255,255,0.02); }
+        .success-flash { animation: flash 0.4s ease-out; }
+        @keyframes flash { 0% { background-color: #171717; } 100% { background-color: #0a0a0a; } }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+    </style>
+</head>
+<body class="min-h-screen p-6 md:p-12 flex flex-col justify-between selection:bg-neutral-800 selection:text-white">
+
+    <main class="max-w-3xl mx-auto w-full space-y-8 pt-4">
+        
+        <!-- Header / Control Deck Navigation -->
+        <div class="border-b border-neutral-900 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+                <h1 class="text-sm tracking-[0.3em] text-white font-bold uppercase">WARRATYI // MASTER TERMINAL</h1>
+                <p class="text-xs text-neutral-500 mt-1">Configure layout blocks, rewrite embedded code, and verify production components.</p>
+            </div>
+            
+            <!-- Navigation Submenu Tabs -->
+            <nav class="flex border border-neutral-900 bg-[#0a0a0a] p-1 text-xs">
+                <button onclick="switchTab('intro')" id="tab-btn-intro" class="px-4 py-2 text-white font-bold uppercase tracking-wider transition-colors duration-150 bg-neutral-900 border border-neutral-800">
+                    Intro
+                </button>
+                <button onclick="switchTab('about')" id="tab-btn-about" class="px-4 py-2 text-neutral-500 hover:text-neutral-300 font-bold uppercase tracking-wider transition-colors duration-150">
+                    About
+                </button>
+                <button onclick="switchTab('converter')" id="tab-btn-converter" class="px-4 py-2 text-neutral-500 hover:text-neutral-300 font-bold uppercase tracking-wider transition-colors duration-150">
+                    Converter
+                </button>
+            </nav>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB 1: INTRO EDITOR PANEL                 -->
+        <!-- ========================================== -->
+        <div id="panel-intro" class="tab-panel active space-y-6">
+            <div class="space-y-4 bg-[#0a0a0a] border border-neutral-900 p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2"><i data-lucide="heading" class="w-3.5 h-3.5"></i> Project Title</label>
+                        <input type="text" id="projectTitle" value="Warratyi Black Label" class="w-full bg-[#050505] border border-neutral-900 p-3 text-xs text-neutral-200 rounded-none">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2"><i data-lucide="align-justify" class="w-3.5 h-3.5"></i> Mobile View Alignment</label>
+                        <select id="alignmentRule" class="w-full bg-[#050505] border border-neutral-900 p-3 text-xs text-neutral-200 rounded-none cursor-pointer">
+                            <option value="text-center md:text-left">Centered on Mobile (Left on Desktop)</option>
+                            <option value="text-left">Left Aligned Everywhere</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="pt-4 flex items-center justify-between border-t border-neutral-900">
+                    <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2"><i data-lucide="text-quote" class="w-3.5 h-3.5"></i> Summary Paragraphs</label>
+                    <div class="flex gap-2">
+                        <button onclick="adjustIntroParagraphs(-1)" class="px-3 py-1 bg-neutral-900 hover:bg-neutral-800 text-xs text-white border border-neutral-800 rounded-none">- Strip</button>
+                        <button onclick="adjustIntroParagraphs(1)" class="px-3 py-1 bg-neutral-900 hover:bg-neutral-800 text-xs text-white border border-neutral-800 rounded-none">+ Append</button>
+                    </div>
+                </div>
+                <div id="introParagraphContainer" class="space-y-4 pt-2">
+                    <div class="space-y-1.5 intro-p-box">
+                        <span class="text-[10px] text-neutral-600 uppercase tracking-wider block">Paragraph 1</span>
+                        <textarea class="intro-paragraph-input w-full h-24 bg-[#050505] border border-neutral-900 p-3 text-xs text-neutral-300 rounded-none resize-none">Industrial atmosphere paired with heavy basslines and cinematic emotional weight. The music moves between grunge-inspired tension, spoken-word poetry, and dark ambient soundscapes, built around themes of identity, attention, and modern digital life.</textarea>
+                    </div>
+                    <div class="space-y-1.5 intro-p-box">
+                        <span class="text-[10px] text-neutral-600 uppercase tracking-wider block">Paragraph 2</span>
+                        <textarea class="intro-paragraph-input w-full h-24 bg-[#050505] border border-neutral-900 p-3 text-xs text-neutral-300 rounded-none resize-none">Support the work directly through Bandcamp, where releases, albums, along with direct embeds to stream, purchase, and own the music in its highest quality form.</textarea>
+                    </div>
+                </div>
+            </div>
+            <button onclick="compileIntroSection()" class="w-full py-3 bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors duration-200 rounded-none flex items-center justify-center gap-2">
+                <i data-lucide="terminal" class="w-3.5 h-3.5"></i> Compile Intro Layout
+            </button>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB 2: ABOUT EDITOR PANEL                 -->
+        <!-- ========================================== -->
+        <div id="panel-about" class="tab-panel space-y-6">
+            <div class="space-y-4 bg-[#0a0a0a] border border-neutral-900 p-6">
+                <div class="space-y-2">
+                    <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2"><i data-lucide="type" class="w-3.5 h-3.5"></i> Section Title</label>
+                    <input type="text" id="sectionTitle" value="About the Project" class="w-full bg-[#050505] border border-neutral-900 p-3 text-xs text-neutral-200 rounded-none">
+                </div>
+                <div class="pt-2 flex items-center justify-between">
+                    <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2"><i data-lucide="layers" class="w-3.5 h-3.5"></i> Paragraph Blocks</label>
+                    <div class="flex gap-2">
+                        <button onclick="adjustParagraphs(-1)" class="px-3 py-1 bg-neutral-900 hover:bg-neutral-800 text-xs text-white border border-neutral-800 rounded-none">- Remove</button>
+                        <button onclick="adjustParagraphs(1)" class="px-3 py-1 bg-neutral-900 hover:bg-neutral-800 text-xs text-white border border-neutral-800 rounded-none">+ Add Paragraph</button>
+                    </div>
+                </div>
+                <div id="paragraphContainer" class="space-y-4 pt-2">
+                    <div class="space-y-1.5 p-box">
+                        <span class="text-[10px] text-neutral-600 uppercase tracking-wider block">Paragraph 1</span>
+                        <textarea class="paragraph-input w-full h-24 bg-[#050505] border border-neutral-900 p-3 text-xs text-neutral-300 rounded-none resize-none">This project is a personal soundboard built from poetry, observation, and lived thought. Each release functions less like a single song and more like a captured moment of reflection—where ideas about society, identity, attention, and behaviour are translated into sound. It is not driven by trend or genre convention, but by themes and questions, using music as a way to document inner dialogue in a public space. The body of work sits under Warratyi at Warratyi Black Label as an evolving archive of emotional and conceptual sketches.</textarea>
+                    </div>
+                    <div class="space-y-1.5 p-box">
+                        <span class="text-[10px] text-neutral-600 uppercase tracking-wider block">Paragraph 2</span>
+                        <textarea class="paragraph-input w-full h-24 bg-[#050505] border border-neutral-900 p-3 text-xs text-neutral-300 rounded-none resize-none">The way the music is made comes from writing first, not production. Ideas are formed as text, spoken rhythm, or poetic structure, then shaped into musical form through atmosphere, pacing, and tone. Production follows the meaning rather than leading it—piano, voice, distortion, and space are chosen to match the emotional weight of the words. Each track is built like a scene or statement, layered gradually until the feeling of the idea is fully translated into sound.</textarea>
+                    </div>
+                </div>
+            </div>
+            <button onclick="compileAboutSection()" class="w-full py-3 bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors duration-200 rounded-none flex items-center justify-center gap-2">
+                <i data-lucide="file-code" class="w-3.5 h-3.5"></i> Compile About Section
+            </button>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB 3: BANDCAMP CONVERTER PANEL           -->
+        <!-- ========================================== -->
+        <div id="panel-converter" class="tab-panel space-y-6">
+            <div class="space-y-2">
+                <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2"><i data-lucide="code" class="w-3.5 h-3.5"></i> Raw Bandcamp Embed Code</label>
+                <textarea id="rawInput" placeholder='Paste <iframe...> code block here...' class="w-full h-32 bg-[#0a0a0a] border border-neutral-900 p-4 text-xs text-neutral-300 rounded-none resize-none"></textarea>
+            </div>
+            <button onclick="convertEmbed()" class="w-full py-3 bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors duration-200 rounded-none flex items-center justify-center gap-2">
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Rewrite Parameters
+            </button>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- UNIFIED GLOBAL OUTPUT VIEWPORT AREA        -->
+        <!-- ========================================== -->
+        <div id="outputWrapper" class="space-y-8 hidden">
+            <!-- Source Code Output Container -->
+            <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                    <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2">
+                        <i data-lucide="terminal" class="w-3.5 h-3.5"></i> Compiled Production Code
+                    </label>
+                    <button onclick="copyCode()" class="text-xs text-neutral-500 hover:text-white transition-colors duration-100 flex items-center gap-1">
+                        <i data-lucide="copy" class="w-3 h-3"></i> <span id="copyText">Copy Code</span>
+                    </button>
+                </div>
+                <textarea id="htmlOutput" readonly class="w-full h-48 bg-[#0a0a0a] border border-neutral-900 p-4 text-xs text-emerald-500/90 rounded-none resize-none cursor-text"></textarea>
+            </div>
+
+            <!-- Visual Verification sandbox container -->
+            <div class="space-y-2">
+                <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2"><i data-lucide="eye" class="w-3.5 h-3.5"></i> Visual Verification Sandbox</label>
+                <div class="w-full bg-[#0a0a0a] border border-neutral-900 p-8 rounded-none">
+                    <div id="livePreview"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Global Footer Context -->
+    <footer class="text-center text-[10px] text-neutral-600 tracking-wider pt-12 uppercase">
+        Engine Context // Unified Operational Deck 2026
+    </footer>
+
+    <!-- ENGINE LOGIC SCRIPT MODULE -->
+    <script>
+        // Init Lucide Vector Icons Engine
+        lucide.createIcons();
+
+        // Nav Tab Switch Logic Core
+        function switchTab(tabId) {
+            // Hide all components and reset nav button classes
+            const panels = document.getElementsByClassName('tab-panel');
+            for (let p of panels) p.classList.remove('active');
+            
+            const buttons = ['intro', 'about', 'converter'];
+            buttons.forEach(b => {
+                const btn = document.getElementById(`tab-btn-${b}`);
+                btn.className = "px-4 py-2 text-neutral-500 hover:text-neutral-300 font-bold uppercase tracking-wider transition-colors duration-150";
+            });
+
+            // Set target components active layout profiles
+            document.getElementById(`panel-${tabId}`).classList.add('active');
+            document.getElementById(`tab-btn-${tabId}`).className = "px-4 py-2 text-white font-bold uppercase tracking-wider transition-colors duration-150 bg-neutral-900 border border-neutral-800";
+            
+            // Clean global output screen viewports when swapping fields
+            document.getElementById('outputWrapper').classList.add('hidden');
+        }
+
+        // --- SUBMODULE 1: INTRO CODE MATRIX ---
+        function adjustIntroParagraphs(direction) {
+            const container = document.getElementById('introParagraphContainer');
+            const currentBoxes = container.getElementsByClassName('intro-p-box');
+            if (direction === 1) {
+                const newParagraph = document.createElement('div');
+                newParagraph.className = 'space-y-1.5 intro-p-box';
+                newParagraph.innerHTML = `<span class="text-[10px] text-neutral-600 uppercase tracking-wider block">Paragraph ${currentBoxes.length + 1}</span>
+                    <textarea class="intro-paragraph-input w-full h-24 bg-[#050505] border border-neutral-900 p-3 text-xs text-neutral-300 rounded-none resize-none" placeholder="Enter introductory copy text..."></textarea>`;
+                container.appendChild(newParagraph);
+            } else if (direction === -1 && currentBoxes.length > 1) {
+                container.removeChild(currentBoxes[currentBoxes.length - 1]);
+            }
+        }
+
+        function compileIntroSection() {
+            const title = document.getElementById('projectTitle').value.trim() || 'Warratyi Black Label';
+            const alignment = document.getElementById('alignmentRule').value;
+            const textareas = document.getElementsByClassName('intro-paragraph-input');
+            let pMarkup = '';
+            for (let t of textareas) {
+                if (t.value.trim()) pMarkup += `                 <p class="text-neutral-400 text-sm max-w-xl leading-relaxed">\n                    ${t.value.trim()}\n                </p>\n`;
+            }
+            const finalHtml = `            <div class="${alignment} space-y-4">\n                <h1 class="text-3xl md:text-4xl font-light tracking-tight text-white uppercase">\n                    ${title}\n                </h1>\n${pMarkup}            </div>`;
+            updateOutput(finalHtml);
+        }
+
+        // --- SUBMODULE 2: ABOUT CODE MATRIX ---
+        function adjustParagraphs(direction) {
+            const container = document.getElementById('paragraphContainer');
+            const currentBoxes = container.getElementsByClassName('p-box');
+            if (direction === 1) {
+                const newParagraph = document.createElement('div');
+                newParagraph.className = 'space-y-1.5 p-box';
+                newParagraph.innerHTML = `<span class="text-[10px] text-neutral-600 uppercase tracking-wider block">Paragraph ${currentBoxes.length + 1}</span>
+                    <textarea class="paragraph-input w-full h-24 bg-[#050505] border border-neutral-900 p-3 text-xs text-neutral-300 rounded-none resize-none" placeholder="Enter text narrative here..."></textarea>`;
+                container.appendChild(newParagraph);
+            } else if (direction === -1 && currentBoxes.length > 1) {
+                container.removeChild(currentBoxes[currentBoxes.length - 1]);
+            }
+        }
+
+        function compileAboutSection() {
+            const title = document.getElementById('sectionTitle').value.trim() || 'About the Project';
+            const textareas = document.getElementsByClassName('paragraph-input');
+            let pMarkup = '';
+            for (let t of textareas) {
+                if (t.value.trim()) pMarkup += `                <p>\n                    ${t.value.trim()}\n                </p>\n`;
+            }
+            const finalHtml = `        <!-- About Section -->\n        <section id="about" class="space-y-6 scroll-mt-24 border-t border-neutral-900 pt-12">\n            <div class="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-neutral-400 font-semibold">\n                <i data-lucide="user" class="w-4 h-4"></i>\n                <h2>${title}</h2>\n            </div>\n            <div class="text-neutral-400 text-sm space-y-4 leading-relaxed max-w-2xl">\n${pMarkup}            </div>\n        </section>`;
+            updateOutput(finalHtml);
+        }
+
+        // --- SUBMODULE 3: CONVERTER MATRIX ---
+        function convertEmbed() {
+            const input = document.getElementById('rawInput').value;
+            if (!input.trim()) return;
+            const srcMatch = input.match(/src="([^"]+)"/);
+            const anchorMatch = input.match(/<a href="([^"]+)">([^<]+)<\/a>/);
+            if (srcMatch) {
+                let urlStr = srcMatch[1];
+                urlStr = urlStr.replace(/bgcol=[^/&]+/, 'bgcol=0a0a0a').replace(/linkcol=[^/&]+/, 'linkcol=ffffff').replace(/size=[^/&]+/, 'size=large');
+                if (!urlStr.includes('tracklist=')) urlStr += 'tracklist=false/'; else urlStr = urlStr.replace(/tracklist=[^/&]+/, 'tracklist=false');
+                if (!urlStr.includes('artwork=')) urlStr += 'artwork=small/'; else urlStr = urlStr.replace(/artwork=[^/&]+/, 'artwork=small');
+                let href = anchorMatch ? anchorMatch[1] : "https://bandcamp.com";
+                let text = anchorMatch ? anchorMatch[2].trim() : "Warratyi Content Portal";
+                const finalHtml = `<div class="w-full bg-[#0a0a0a] border border-neutral-900 p-2 rounded-none">\n    <iframe style="border: 0; width: 100%; height: 120px;" \n        src="${urlStr}" \n        seamless>\n        <a href="${href}">${text}</a>\n    </iframe>\n</div>`;
+                updateOutput(finalHtml);
+            } else { alert("Invalid structural code parsed."); }
+        }
+
+        // Global Output & Rendering Updates
+        function updateOutput(htmlContent) {
+            document.getElementById('htmlOutput').value = htmlContent;
+            document.getElementById('livePreview').innerHTML = htmlContent;
+            document.getElementById('outputWrapper').classList.remove('hidden');
+            lucide.createIcons();
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        function copyCode() {
+            const copyBtnText = document.getElementById("copyText");
+            const outputField = document.getElementById("htmlOutput");
+            outputField.select();
+            outputField.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(outputField.value);
+            outputField.classList.add('success-flash');
+            copyBtnText.innerText = "Copied Setup!";
+            setTimeout(() => {
+                outputField.classList.remove('success-flash');
+                copyBtnText.innerText = "Copy Code";
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
