@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONVERTER // BANDCAMP DOCK</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { background-color: #050505; color: #a3a3a3; font-family: ui-mono, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+        textarea:focus { outline: none; border-color: #525252; box-shadow: 0 0 10px rgba(255,255,255,0.02); }
+        .success-flash { animation: flash 0.4s ease-out; }
+        @keyframes flash { 0% { background-color: #171717; } 100% { background-color: #0a0a0a; } }
+    </style>
+</head>
+<body class="min-h-screen p-6 md:p-12 flex flex-col justify-between selection:bg-neutral-800 selection:text-white">
+
+    <main class="max-w-2xl mx-auto w-full space-y-8 pt-8">
+        <!-- Header -->
+        <div class="border-b border-neutral-900 pb-4">
+            <h1 class="text-sm tracking-[0.3em] text-white font-bold uppercase">EMBED // UTILITY</h1>
+            <p class="text-xs text-neutral-500 mt-1">Convert standard Bandcamp shares into structured dark-aesthetic units.</p>
+        </div>
+
+        <!-- Input Area -->
+        <div class="space-y-2">
+            <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2">
+                <i data-lucide="code" class="w-3.5 h-3.5"></i> Raw Bandcamp Embed Code
+            </label>
+            <textarea id="rawInput" placeholder='Paste <iframe...> code block here...' 
+                class="w-full h-32 bg-[#0a0a0a] border border-neutral-900 p-4 text-xs text-neutral-300 rounded-none resize-none transition-colors duration-200"></textarea>
+        </div>
+
+        <!-- Processing Button -->
+        <button onclick="convertEmbed()" 
+            class="w-full py-3 bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors duration-200 rounded-none flex items-center justify-center gap-2">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Rewrite Parameters
+        </button>
+
+        <!-- Output Area (Hidden by default until generation) -->
+        <div id="outputWrapper" class="space-y-6 hidden">
+            <!-- Code Block Output -->
+            <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                    <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2">
+                        <i data-lucide="terminal" class="w-3.5 h-3.5"></i> Production Clean Code
+                    </label>
+                    <button onclick="copyToClipboard()" class="text-xs text-neutral-500 hover:text-white transition-colors duration-100 flex items-center gap-1">
+                        <i data-lucide="copy" class="w-3 h-3"></i> <span id="copyText">Copy</span>
+                    </button>
+                </div>
+                <textarea id="cleanOutput" readonly 
+                    class="w-full h-36 bg-[#0a0a0a] border border-neutral-900 p-4 text-xs text-emerald-500/90 rounded-none resize-none cursor-text"></textarea>
+            </div>
+
+            <!-- Live Preview Area -->
+            <div class="space-y-2">
+                <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2">
+                    <i data-lucide="eye" class="w-3.5 h-3.5"></i> Dynamic Visual Render
+                </label>
+                <div id="livePreview" class="w-full"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Footer -->
+    <footer class="text-center text-[10px] text-neutral-600 tracking-wider pt-12 uppercase">
+        System Operational // 2026
+    </footer>
+
+    <script>
+        // Initialize Lucide Vector Icons
+        lucide.createIcons();
+
+        function convertEmbed() {
+            const input = document.getElementById('rawInput').value;
+            const outputWrapper = document.getElementById('outputWrapper');
+            const cleanOutput = document.getElementById('cleanOutput');
+            const livePreview = document.getElementById('livePreview');
+
+            if (!input.trim()) return;
+
+            // Extract the core parts of the src URL via Regex matches
+            const srcMatch = input.match(/src="([^"]+)"/);
+            const anchorMatch = input.match(/<a href="([^"]+)">([^<]+)<\/a>/);
+
+            if (srcMatch) {
+                let urlStr = srcMatch[1];
+                
+                // Replace variable options with your fixed structural specifications
+                urlStr = urlStr.replace(/bgcol=[^/&]+/, 'bgcol=0a0a0a');
+                urlStr = urlStr.replace(/linkcol=[^/&]+/, 'linkcol=ffffff');
+                urlStr = urlStr.replace(/size=[^/&]+/, 'size=large');
+                
+                // Ensure tracklist and artwork properties are properly configured
+                if (!urlStr.includes('tracklist=')) urlStr += 'tracklist=false/';
+                else urlStr = urlStr.replace(/tracklist=[^/&]+/, 'tracklist=false');
+                
+                if (!urlStr.includes('artwork=')) urlStr += 'artwork=small/';
+                else urlStr = urlStr.replace(/artwork=[^/&]+/, 'artwork=small');
+
+                // Reconstruct the fallbacks carefully
+                let href = "https://bandcamp.com";
+                let text = "Warratyi Content Portal";
+                
+                if (anchorMatch) {
+                    href = anchorMatch[1];
+                    text = anchorMatch[2].trim();
+                }
+
+                // Inject configuration cleanly into your template structure
+                const structuralTemplate = `<div class="w-full bg-[#0a0a0a] border border-neutral-900 p-2 rounded-none">
+    <iframe style="border: 0; width: 100%; height: 120px;" 
+        src="${urlStr}" 
+        seamless>
+        <a href="${href}">${text}</a>
+    </iframe>
+</div>`;
+
+                // Update viewport values
+                cleanOutput.value = structuralTemplate;
+                livePreview.innerHTML = structuralTemplate;
+                outputWrapper.classList.remove('hidden');
+                
+                // Scroll down to show user output context smoothly
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            } else {
+                alert("Invalid configuration code structure parsed. Verify Bandcamp format.");
+            }
+        }
+
+        function copyToClipboard() {
+            const copyTextElement = document.getElementById("copyText");
+            const outputField = document.getElementById("cleanOutput");
+
+            outputField.select();
+            outputField.setSelectionRange(0, 99999); // Mobile optimization
+            navigator.clipboard.writeText(outputField.value);
+
+            // Trigger success indicator feedback
+            outputField.classList.add('success-flash');
+            copyTextElement.innerText = "Copied!";
+            
+            setTimeout(() => {
+                outputField.classList.remove('success-flash');
+                copyTextElement.innerText = "Copy";
+            }, 1500);
+        }
+    </script>
+</body>
+  </html>
+      
