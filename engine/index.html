@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WARRATYI // MASTER ENGINE CONTROL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { background-color: #050505; color: #a3a3a3; font-family: ui-mono, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+        input:focus, textarea:focus, select:focus { outline: none; border-color: #525252; box-shadow: 0 0 10px rgba(255,255,255,0.02); }
+        .success-flash { animation: flash 0.4s ease-out; }
+        @keyframes flash { 0% { background-color: #171717; } 100% { background-color: #0a0a0a; } }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+        .glow-effect { transition: all 0.3s ease; }
+        .glow-effect:hover { box-shadow: 0 0 15px rgba(255, 255, 255, 0.05); border-color: #404040; }
+    </style>
+</head>
+<body class="min-h-screen p-6 md:p-12 flex flex-col justify-between selection:bg-neutral-800 selection:text-white">
+
+    <main class="max-w-3xl mx-auto w-full space-y-8 pt-4">
+        
+        <!-- Control Deck Navigation -->
+        <div class="border-b border-neutral-900 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+                <h1 class="text-sm tracking-[0.3em] text-white font-bold uppercase">WARRATYI // MASTER TERMINAL</h1>
+                <p class="text-xs text-neutral-500 mt-1">Configure layout blocks, rewrite embedded code, and verify production components.</p>
+            </div>
+            
+            <nav class="flex flex-wrap border border-neutral-900 bg-[#0a0a0a] p-1 text-xs gap-1 md:gap-0">
+                <button id="tab-btn-intro" class="px-3 py-2 text-white font-bold uppercase tracking-wider transition-colors duration-150 bg-neutral-900 border border-neutral-800">Intro</button>
+                <button id="tab-btn-about" class="px-3 py-2 text-neutral-500 hover:text-neutral-300 font-bold uppercase tracking-wider transition-colors duration-150">About</button>
+                <button id="tab-btn-links" class="px-3 py-2 text-neutral-500 hover:text-neutral-300 font-bold uppercase tracking-wider transition-colors duration-150">Links</button>
+                <button id="tab-btn-converter" class="px-3 py-2 text-neutral-500 hover:text-neutral-300 font-bold uppercase tracking-wider transition-colors duration-150">Converter</button>
+            </nav>
+        </div>
+
+        <!-- TAB 1: INTRO EDITOR PANEL -->
+        <div id="panel-intro" class="tab-panel active space-y-6">
+            <div class="space-y-4 bg-[#0a0a0a] border border-neutral-900 p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2"><i data-lucide="heading" class="w-3.5 h-3.5"></i> Project Title</label>
+                        <input type="text" id="projectTitle" value="Warratyi Black Label" class="w-full bg-[#050505] border border-neutral-900 p-3 text-xs text-neutral-200 rounded-none">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2"><i data-lucide="align-justify" class="w-3.5 h-3.5"></i> Mobile View Alignment</label>
+                        <select id="alignmentRule" class="w-full bg-[#050505] border border-neutral-900 p-3 text-xs text-neutral-200 rounded-none cursor-pointer">
+                            <option value="text-center md:text-left">Centered on Mobile (Left on Desktop)</option>
+                            <option value="text-left">Left Aligned Everywhere</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="pt-4 flex items-center justify-between border-t border-neutral-900">
+                    <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2"><i data-lucide="text-quote" class="w-3.5 h-3.5"></i> Summary Paragraphs</label>
+                    <div class="flex gap-2">
+                        <button id="btn-strip-intro" class="px-3 py-1 bg-neutral-900 hover:bg-neutral-800 text-xs text-white border border-neutral-800 rounded-none">- Strip</button>
+                        <button id="btn-append-intro" class="px-3 py-1 bg-neutral-900 hover:bg-neutral-800 text-xs text-white border border-neutral-800 rounded-none">+ Append</button>
+                    </div>
+                </div>
+                <div id="introParagraphContainer" class="space-y-4 pt-2">
+                    <div class="space-y-1.5 intro-p-box">
+                        <span class="text-[10px] text-neutral-600 uppercase tracking-wider block">Paragraph 1</span>
+                        <textarea class="intro-paragraph-input w-full h-24 bg-[#050505] border border-neutral-900 p-3 text-xs text-neutral-300 rounded-none resize-none">Industrial atmosphere paired with heavy basslines and cinematic emotional weight. The music moves between grunge-inspired tension, spoken-word poetry, and dark ambient soundscapes, built around themes of identity, attention, and modern digital life.</textarea>
+                    </div>
+                    <div class="space-y-1.5 intro-p-box">
+                        <span class="text-[10px] text-neutral-600 uppercase tracking-wider block">Paragraph 2</span>
+                        <textarea class="intro-paragraph-input w-full h-24 bg-[#050505] border border-neutral-900 p-3 text-xs text-neutral-300 rounded-none resize-none">Support the work directly through Bandcamp, where releases, albums, along with direct embeds to stream, purchase, and own the music in its highest quality form.</textarea>
+                    </div>
+                </div>
+            </div>
+            <button id="btn-compile-intro" class="w-full py-3 bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors duration-200 rounded-none flex items-center justify-center gap-2">
+                <i data-lucide="terminal" class="w-3.5 h-3.5"></i> Compile Intro Layout
+            </button>
+        </div>
+
+        <!-- TAB 2: ABOUT EDITOR PANEL -->
+        <div id="panel-about" class="tab-panel space-y-6">
+            <div class="space-y-4 bg-[#0a0a0a] border border-neutral-900 p-6">
+                <div class="space-y-2">
+                    <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2"><i data-lucide="type" class="w-3.5 h-3.5"></i> Section Title</label>
+                    <input type="text" id="sectionTitle" value="About the Project" class="w-full bg-[#050505] border border-neutral-900 p-3 text-xs text-neutral-200 rounded-none">
+                </div>
+                <div class="pt-2 flex items-center justify-between">
+                    <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2"><i data-lucide="layers" class="w-3.5 h-3.5"></i> Paragraph Blocks</label>
+                    <div class="flex gap-2">
+                        <button id="btn-remove-about" class="px-3 py-1 bg-neutral-900 hover:bg-neutral-800 text-xs text-white border border-neutral-800 rounded-none">- Remove</button>
+                        <button id="btn-add-about" class="px-3 py-1 bg-neutral-900 hover:bg-neutral-800 text-xs text-white border border-neutral-800 rounded-none">+ Add Paragraph</button>
+                    </div>
+                </div>
+                <div id="paragraphContainer" class="space-y-4 pt-2">
+                    <div class="space-y-1.5 p-box">
+                        <span class="text-[10px] text-neutral-600 uppercase tracking-wider block">Paragraph 1</span>
+                        <textarea class="paragraph-input w-full h-24 bg-[#050505] border border-neutral-900 p-3 text-xs text-neutral-300 rounded-none resize-none">This project is a personal soundboard built from poetry, observation, and lived thought. Each release functions less like a single song and more like a captured moment of reflection—where ideas about society, identity, attention, and behaviour are translated into sound. It is not driven by trend or genre convention, but by themes and questions, using music as a way to document inner dialogue in a public space.</textarea>
+                    </div>
+                </div>
+            </div>
+            <button id="btn-compile-about" class="w-full py-3 bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors duration-200 rounded-none flex items-center justify-center gap-2">
+                <i data-lucide="file-code" class="w-3.5 h-3.5"></i> Compile About Section
+            </button>
+        </div>
+
+        <!-- TAB 3: LINKS MANAGER PANEL -->
+        <div id="panel-links" class="tab-panel space-y-6">
+            <div class="space-y-4 bg-[#0a0a0a] border border-neutral-900 p-6">
+                <div class="flex items-center justify-between pb-2 border-b border-neutral-900">
+                    <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2">
+                        <i data-lucide="link-2" class="w-3.5 h-3.5"></i> Portal Hub Configuration
+                    </label>
+                    <button id="btn-add-custom-link" class="px-3 py-1 bg-neutral-900 hover:bg-neutral-800 text-xs text-white border border-neutral-800 rounded-none transition-colors">
+                        + Add Custom Link
+                    </button>
+                </div>
+                <div id="linksContainer" class="space-y-4 divide-y divide-neutral-900/60"></div>
+            </div>
+            <button id="btn-compile-links" class="w-full py-3 bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors duration-200 rounded-none flex items-center justify-center gap-2">
+                <i data-lucide="layers" class="w-3.5 h-3.5"></i> Compile Links Grid
+            </button>
+        </div>
+
+        <!-- TAB 4: BANDCAMP CONVERTER PANEL -->
+        <div id="panel-converter" class="tab-panel space-y-6">
+            <div class="space-y-2">
+                <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2"><i data-lucide="code" class="w-3.5 h-3.5"></i> Raw Bandcamp Embed Code</label>
+                <textarea id="rawInput" placeholder='Paste <iframe...> code block here...' class="w-full h-32 bg-[#0a0a0a] border border-neutral-900 p-4 text-xs text-neutral-300 rounded-none resize-none"></textarea>
+            </div>
+            <button id="btn-convert-embed" class="w-full py-3 bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors duration-200 rounded-none flex items-center justify-center gap-2">
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Rewrite Parameters
+            </button>
+        </div>
+
+        <!-- GLOBAL OUTPUT VIEWPORT AREA -->
+        <div id="outputWrapper" class="space-y-8 hidden">
+            <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                    <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2">
+                        <i data-lucide="terminal" class="w-3.5 h-3.5"></i> Compiled Production Code
+                    </label>
+                    <button id="btn-copy-code" class="text-xs text-neutral-500 hover:text-white transition-colors duration-100 flex items-center gap-1">
+                        <i data-lucide="copy" class="w-3 h-3"></i> <span id="copyText">Copy Code</span>
+                    </button>
+                </div>
+                <textarea id="htmlOutput" readonly class="w-full h-48 bg-[#0a0a0a] border border-neutral-900 p-4 text-xs text-emerald-500/90 rounded-none resize-none cursor-text"></textarea>
+            </div>
+
+            <div class="space-y-2">
+                <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2"><i data-lucide="eye" class="w-3.5 h-3.5"></i> Visual Verification Sandbox</label>
+                <div class="w-full bg-[#050505] border border-neutral-900 p-8 rounded-none">
+                    <div id="livePreview"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center text-[10px] text-neutral-600 tracking-wider pt-12 uppercase">
+        Engine Context // Modular Operational Deck 2026
+    </footer>
+
+    <!-- LINK THE DYNAMIC CONTROL ENGINE -->
+    <script type="module" src="engine.js"></script>
+</body>
+  
+  </html>
