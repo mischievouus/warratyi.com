@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDITOR // INTRODUCTION HERO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { background-color: #050505; color: #a3a3a3; font-family: ui-mono, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+        input:focus, textarea:focus, select:focus { outline: none; border-color: #525252; box-shadow: 0 0 10px rgba(255,255,255,0.02); }
+        .success-flash { animation: flash 0.4s ease-out; }
+        @keyframes flash { 0% { background-color: #171717; } 100% { background-color: #0a0a0a; } }
+    </style>
+</head>
+<body class="min-h-screen p-6 md:p-12 flex flex-col justify-between selection:bg-neutral-800 selection:text-white">
+
+    <main class="max-w-3xl mx-auto w-full space-y-8 pt-8">
+        <!-- Header Context -->
+        <div class="border-b border-neutral-900 pb-4">
+            <h1 class="text-sm tracking-[0.3em] text-white font-bold uppercase">ARCHIVE // INTRO HERO EDITOR</h1>
+            <p class="text-xs text-neutral-500 mt-1">Configure title metadata, alignment rules, and baseline presentation vectors.</p>
+        </div>
+
+        <!-- Configuration Panel -->
+        <div class="space-y-4 bg-[#0a0a0a] border border-neutral-900 p-6">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Brand Title Input -->
+                <div class="space-y-2">
+                    <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2">
+                        <i data-lucide="heading" class="w-3.5 h-3.5"></i> Project Title
+                    </label>
+                    <input type="text" id="projectTitle" value="Warratyi Black Label" 
+                        class="w-full bg-[#050505] border border-neutral-900 p-3 text-xs text-neutral-200 rounded-none transition-colors duration-200">
+                </div>
+
+                <!-- Alignment Control Interface -->
+                <div class="space-y-2">
+                    <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2">
+                        <i data-lucide="align-justify" class="w-3.5 h-3.5"></i> Mobile View Alignment
+                    </label>
+                    <select id="alignmentRule" class="w-full bg-[#050505] border border-neutral-900 p-3 text-xs text-neutral-200 rounded-none transition-colors duration-200 cursor-pointer">
+                        <option value="text-center md:text-left">Centered on Mobile (Left on Desktop)</option>
+                        <option value="text-left">Left Aligned Everywhere</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Paragraph Scaling Interface Header -->
+            <div class="pt-4 flex items-center justify-between border-t border-neutral-900">
+                <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2">
+                    <i data-lucide="text-quote" class="w-3.5 h-3.5"></i> Summary Paragraphs
+                </label>
+                <div class="flex gap-2">
+                    <button onclick="adjustIntroParagraphs(-1)" class="px-3 py-1 bg-neutral-900 hover:bg-neutral-800 text-xs text-white border border-neutral-800 rounded-none transition-colors">- Strip Block</button>
+                    <button onclick="adjustIntroParagraphs(1)" class="px-3 py-1 bg-neutral-900 hover:bg-neutral-800 text-xs text-white border border-neutral-800 rounded-none transition-colors">+ Append Block</button>
+                </div>
+            </div>
+
+            <!-- Dynamic Input Container -->
+            <div id="introParagraphContainer" class="space-y-4 pt-2">
+                <div class="space-y-1.5 intro-p-box">
+                    <span class="text-[10px] text-neutral-600 uppercase tracking-wider block">Paragraph 1</span>
+                    <textarea class="intro-paragraph-input w-full h-24 bg-[#050505] border border-neutral-900 p-3 text-xs text-neutral-300 rounded-none resize-none transition-colors duration-200">Industrial atmosphere paired with heavy basslines and cinematic emotional weight. The music moves between grunge-inspired tension, spoken-word poetry, and dark ambient soundscapes, built around themes of identity, attention, and modern digital life.</textarea>
+                </div>
+                <div class="space-y-1.5 intro-p-box">
+                    <span class="text-[10px] text-neutral-600 uppercase tracking-wider block">Paragraph 2</span>
+                    <textarea class="intro-paragraph-input w-full h-24 bg-[#050505] border border-neutral-900 p-3 text-xs text-neutral-300 rounded-none resize-none transition-colors duration-200">Support the work directly through Bandcamp, where releases, albums, along with direct embeds to stream, purchase, and own the music in its highest quality form.</textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Run Compiler -->
+        <button onclick="compileIntroSection()" 
+            class="w-full py-3 bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors duration-200 rounded-none flex items-center justify-center gap-2">
+            <i data-lucide="terminal" class="w-3.5 h-3.5"></i> Compile Intro Layout
+        </button>
+
+        <!-- Output Context Layouts -->
+        <div id="outputWrapper" class="space-y-8 hidden">
+            <!-- Source Code Output -->
+            <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                    <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2">
+                        <i data-lucide="code-2" class="w-3.5 h-3.5"></i> Compiled Hero Markup
+                    </label>
+                    <button onclick="copyCode()" class="text-xs text-neutral-500 hover:text-white transition-colors duration-100 flex items-center gap-1">
+                        <i data-lucide="copy" class="w-3 h-3"></i> <span id="copyText">Copy Code</span>
+                    </button>
+                </div>
+                <textarea id="htmlOutput" readonly 
+                    class="w-full h-48 bg-[#0a0a0a] border border-neutral-900 p-4 text-xs text-emerald-500/90 rounded-none resize-none cursor-text"></textarea>
+            </div>
+
+            <!-- Operational Verification Sandbox -->
+            <div class="space-y-2">
+                <label class="text-xs uppercase tracking-widest text-neutral-400 font-semibold flex items-center gap-2">
+                    <i data-lucide="eye" class="w-3.5 h-3.5"></i> Visual Verification Sandbox (Simulated Viewport)
+                </label>
+                <!-- Container mimics your site landscape to track alignment changes visually -->
+                <div class="w-full bg-[#0a0a0a] border border-neutral-900 p-8 rounded-none transition-all duration-300">
+                    <div id="livePreview"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Meta -->
+    <footer class="text-center text-[10px] text-neutral-600 tracking-wider pt-12 uppercase">
+        Engine Context // Operational 2026
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        function adjustIntroParagraphs(direction) {
+            const container = document.getElementById('introParagraphContainer');
+            const currentBoxes = container.getElementsByClassName('intro-p-box');
+            
+            if (direction === 1) {
+                const nextIndex = currentBoxes.length + 1;
+                const newParagraph = document.createElement('div');
+                newParagraph.className = 'space-y-1.5 intro-p-box';
+                newParagraph.innerHTML = `
+                    <span class="text-[10px] text-neutral-600 uppercase tracking-wider block">Paragraph ${nextIndex}</span>
+                    <textarea class="intro-paragraph-input w-full h-24 bg-[#050505] border border-neutral-900 p-3 text-xs text-neutral-300 rounded-none resize-none transition-colors duration-200" placeholder="Enter introductory copy text..."></textarea>
+                `;
+                container.appendChild(newParagraph);
+            } else if (direction === -1 && currentBoxes.length > 1) {
+                container.removeChild(currentBoxes[currentBoxes.length - 1]);
+            }
+        }
+
+        function compileIntroSection() {
+            const titleValue = document.getElementById('projectTitle').value.trim() || 'Warratyi Black Label';
+            const alignmentClass = document.getElementById('alignmentRule').value;
+            const textareas = document.getElementsByClassName('intro-paragraph-input');
+            const outputWrapper = document.getElementById('outputWrapper');
+            const htmlOutput = document.getElementById('htmlOutput');
+            const livePreview = document.getElementById('livePreview');
+
+            let paragraphBlocksMarkup = '';
+            
+            // Generate semantic paragraph rows with your precise styling parameters and linebreaks preserved
+            for (let i = 0; i < textareas.length; i++) {
+                const text = textareas[i].value.trim();
+                if (text) {
+                    paragraphBlocksMarkup += `                 <p class="text-neutral-400 text-sm max-w-xl leading-relaxed">\n                    ${text}\n                </p>\n`;
+                }
+            }
+
+            // Assembles structural code aligning to your precise target single-file layout code specs
+            const finalHtml = `            <div class="${alignmentClass} space-y-4">
+                <h1 class="text-3xl md:text-4xl font-light tracking-tight text-white uppercase">
+                    ${titleValue}
+                </h1>
+${paragraphBlocksMarkup}            </div>`;
+
+            // Commit modifications to UI outputs
+            htmlOutput.value = finalHtml;
+            livePreview.innerHTML = finalHtml;
+            outputWrapper.classList.remove('hidden');
+            
+            // Adjust windows perspective context smoothly
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        function copyCode() {
+            const copyTextElement = document.getElementById("copyText");
+            const outputField = document.getElementById("htmlOutput");
+
+            outputField.select();
+            outputField.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(outputField.value);
+
+            outputField.classList.add('success-flash');
+            copyTextElement.innerText = "Copied Layout!";
+            
+            setTimeout(() => {
+                outputField.classList.remove('success-flash');
+                copyTextElement.innerText = "Copy Code";
+            }, 1500);
+        }
+    </script>
+</body>
+  </html>
+  
