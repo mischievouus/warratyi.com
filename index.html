@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJECT // OFFICAL</title>
+    <!-- Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons for clean, modern iconography -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom dark aesthetic refinements */
+        body {
+            background-color: #0a0a0a;
+            color: #e5e5e5;
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        .glow-effect {
+            transition: all 0.3s ease;
+        }
+        .glow-effect:hover {
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+            border-color: #404040;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #262626; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #404040; }
+    </style>
+</head>
+<body class="selection:bg-neutral-800 selection:text-white antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Header / Navigation -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="text-sm font-mono tracking-[0.3em] text-white font-bold uppercase">WARRATYI BLACK LABEL //</a>
+            <nav class="flex gap-6 text-xs uppercase tracking-widest text-neutral-400 font-medium">
+                <a href="#music" class="hover:text-white transition-colors">Music</a>
+                <a href="#links" class="hover:text-white transition-colors">Links</a>
+                <a href="#about" class="hover:text-white transition-colors">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-3xl mx-auto px-6 pt-32 pb-16 flex-grow w-full space-y-24">
+
+        <!-- Hero Section -->
+        <section class="text-center md:text-left py-4 flex flex-col md:flex-row items-center gap-8 border-b border-neutral-900 pb-16">
+            <!-- Project Avatar / Artwork Placeholder -->
+            <div class="w-32 h-32 md:w-40 md:h-40 bg-neutral-900 border border-neutral-800 rounded-none flex items-center justify-center shrink-0 relative overflow-hidden group">
+                <i data-lucide="disc" class="w-12 h-12 text-neutral-700 group-hover:rotate-180 transition-transform duration-1000"></i>
+                <!-- Subtle overlay -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            </div>
+            <div class="space-y-4">
+                <h1 class="text-3xl md:text-4xl font-light tracking-tight text-white uppercase">
+                    Audio & Chaos
+                </h1>
+                <p class="text-neutral-400 text-sm max-w-xl leading-relaxed">
+                    Industrial atmosphere paired with heavy basslines. Stream the latest releases, grab physical merchandise, and find direct portals to all streaming platforms below.
+                </p>
+            </div>
+        </section>
+
+        <!-- Music / Bandcamp Embed Section -->
+        <section id="music" class="space-y-6 scroll-mt-24">
+            <div class="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-neutral-400 font-semibold">
+                <i data-lucide="music" class="w-4 h-4"></i>
+                <h2>Latest Releases</h2>
+            </div>
+            
+            <div class="space-y-4">
+                <!-- Bandcamp Player Container -->
+                <div class="w-full bg-neutral-950 border border-neutral-900 p-2 rounded-none">
+                    <!-- REPLACE THE IFRAME BELOW WITH YOUR BANDCAMP EMBED CODE -->
+                    <iframe style="border: 0; width: 100%; h-120px; height: 120px;" 
+                            src="https://bandcamp.com/EmbeddedPlayer/track=4278943479/size=large/bgcol=0a0a0a/linkcol=ffffff/artwork=small/transparent=true/" 
+                            seamless>
+                        <a href="https://bandcamp.com">Theatre Without Walls</a>
+                    </iframe >
+                </div>
+
+                <div class="w-full bg-[#0a0a0a] border border-neutral-900 p-2 rounded-none">
+                    <iframe style="border: 0; width: 100%; height: 120px;" 
+                        src="https://bandcamp.com/EmbeddedPlayer/track=2586016193/size=large/bgcol=0a0a0a/linkcol=ffffff/tracklist=false/artwork=small/transparent=true/" 
+                        seamless>
+                        <a href="https://warratyi.bandcamp.com/track/emotional-fluctuations">Emotional Fluctuations by Warratyi </a>
+                    </iframe>
+                </div>
+
+                <div class="w-full bg-[#0a0a0a] border border-neutral-900 p-2 rounded-none">
+                    <iframe style="border: 0; width: 100%; height: 120px;" 
+                        src="https://bandcamp.com/EmbeddedPlayer/album=781363822/size=large/bgcol=0a0a0a/linkcol=ffffff/tracklist=true/artwork=small/transparent=true/" 
+                        seamless>
+                        <a href="https://warratyi.bandcamp.com/album/strictly-mine">Strictly Mine (Album) </a>
+                    </iframe>
+                </div>
+                
+                <div class="w-full bg-[#0a0a0a] border border-neutral-900 p-2 rounded-none">
+                    <iframe style="border: 0; width: 100%; height: 120px;" 
+                        src="https://bandcamp.com/EmbeddedPlayer/track=3551721296/size=large/bgcol=0a0a0a/linkcol=ffffff/tracklist=true/artwork=small/transparent=true/" 
+                        seamless>
+                        <a href="https://warratyi.bandcamp.com/track/same-fight-different-day">Same Fight Different Day by Warratyi</a>
+                    </iframe>
+                </div>
+                
+                <div class="w-full bg-[#0a0a0a] border border-neutral-900 p-2 rounded-none">
+                    <iframe style="border: 0; width: 100%; height: 120px;" 
+                        src="https://bandcamp.com/EmbeddedPlayer/track=3590057272/size=large/bgcol=0a0a0a/linkcol=ffffff/tracklist=false/artwork=small/transparent=true/" 
+                        seamless>
+                        <a href="https://warratyi.bandcamp.com/track/chains">Chains by Warratyi</a>
+                    </iframe>
+                </div>
+
+                <div class="w-full bg-[#0a0a0a] border border-neutral-900 p-2 rounded-none">
+                    <iframe style="border: 0; width: 100%; height: 120px;" 
+                        src="https://bandcamp.com/EmbeddedPlayer/album=911686790/size=large/bgcol=0a0a0a/linkcol=ffffff/tracklist=true/artwork=small/transparent=true/" 
+                        seamless>
+                        <a href="https://warratyi.bandcamp.com/album/fundamental-danger">Fundamental Danger by Warratyi</a>
+                    </iframe>
+                </div>
+                
+                  <div class="w-full bg-[#0a0a0a] border border-neutral-900 p-2 rounded-none">
+                    <iframe style="border: 0; width: 100%; height: 120px;" 
+                        src="https://bandcamp.com/EmbeddedPlayer/track=2484485176/size=large/bgcol=0a0a0a/linkcol=ffffff/tracklist=true/artwork=small/transparent=true/" 
+                        seamless>
+                        <a href="https://warratyi.bandcamp.com/track/truth-on-the-land">Truth On The Land by Warratyi</a>
+                    </iframe>
+                </div>
+                
+                 <div class="w-full bg-[#0a0a0a] border border-neutral-900 p-2 rounded-none">
+                    <iframe style="border: 0; width: 100%; height: 120px;" 
+                        src="https://bandcamp.com/EmbeddedPlayer/track=2650183252/size=large/bgcol=0a0a0a/linkcol=ffffff/tracklist=true/artwork=small/transparent=true/" 
+                        seamless>
+                        <a href="https://warratyi.bandcamp.com/track/purple-overload">Purple Overload by Warratyi</a>
+                    </iframe>
+                </div>>
+                
+                <div class="w-full bg-[#0a0a0a] border border-neutral-900 p-2 rounded-none">
+                    <iframe style="border: 0; width: 100%; height: 120px;" 
+                        src="https://bandcamp.com/EmbeddedPlayer/track=184493107/size=large/bgcol=0a0a0a/linkcol=ffffff/tracklist=true/artwork=small/transparent=true/" 
+                        seamless>
+                        <a href="https://warratyi.bandcamp.com/track/suno-elevates">Suno Elevates by Warratyi</a>
+                    </iframe>
+                </div>>
+                
+                  <div class="w-full bg-[#0a0a0a] border border-neutral-900 p-2 rounded-none">
+                    <iframe style="border: 0; width: 100%; height: 120px;" 
+                        src="https://bandcamp.com/EmbeddedPlayer/track=64663051/size=large/bgcol=0a0a0a/linkcol=ffffff/tracklist=true/artwork=small/transparent=true/" 
+                        seamless>
+                        <a href="https://warratyi.bandcamp.com/track/ngawarla">Ngawarla by Warratyi</a>
+                    </iframe>
+                </div>>
+
+                <!-- Secondary Track/Album Embed -->
+                <div class="w-full bg-neutral-950 border border-neutral-900 p-2 rounded-none">
+                    <!-- Placeholder for a second embed or SoundCloud player -->
+                    <div class="w-full h-[120px] bg-neutral-900/30 border border-dashed border-neutral-800 flex flex-col items-center justify-center text-xs text-neutral-500 gap-2">
+                        <p class="font-mono">Ready for secondary Bandcamp / SoundCloud Embed</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Link Tree Section -->
+        <section id="links" class="space-y-6 scroll-mt-24">
+            <div class="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-neutral-400 font-semibold">
+                <i data-lucide="link" class="w-4 h-4"></i>
+                <h2>Portals & Socials</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <!-- Bandcamp Link -->
+                <a href="https://bandcamp.com" target="_blank" class="glow-effect flex items-center justify-between p-4 bg-neutral-950 border border-neutral-900 hover:bg-neutral-900/40 text-sm group">
+                    <span class="font-medium text-neutral-200 group-hover:text-white transition-colors">Bandcamp Store</span>
+                    <i data-lucide="external-link" class="w-4 h-4 text-neutral-600 group-hover:text-neutral-400 transition-colors"></i>
+                </a>
+
+                <!-- SoundCloud Link -->
+                <a href="https://soundcloud.com" target="_blank" class="glow-effect flex items-center justify-between p-4 bg-neutral-950 border border-neutral-900 hover:bg-neutral-900/40 text-sm group">
+                    <span class="font-medium text-neutral-200 group-hover:text-white transition-colors">SoundCloud Portal</span>
+                    <i data-lucide="music-2" class="w-4 h-4 text-neutral-600 group-hover:text-neutral-400 transition-colors"></i>
+                </a>
+
+                <!-- TikTok Link -->
+                <a href="https://tiktok.com" target="_blank" class="glow-effect flex items-center justify-between p-4 bg-neutral-950 border border-neutral-900 hover:bg-neutral-900/40 text-sm group">
+                    <span class="font-medium text-neutral-200 group-hover:text-white transition-colors">TikTok Video Feed</span>
+                    <i data-lucide="video" class="w-4 h-4 text-neutral-600 group-hover:text-neutral-400 transition-colors"></i>
+                </a>
+
+                <!-- Custom/Other Links -->
+                <a href="#" target="_blank" class="glow-effect flex items-center justify-between p-4 bg-neutral-950 border border-neutral-900 hover:bg-neutral-900/40 text-sm group">
+                    <span class="font-medium text-neutral-200 group-hover:text-white transition-colors">Mailing List / Contact</span>
+                    <i data-lucide="mail" class="w-4 h-4 text-neutral-600 group-hover:text-neutral-400 transition-colors"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="space-y-6 scroll-mt-24 border-t border-neutral-900 pt-12">
+            <div class="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-neutral-400 font-semibold">
+                <i data-lucide="user" class="w-4 h-4"></i>
+                <h2>About the Project</h2>
+            </div>
+            <div class="text-neutral-400 text-sm space-y-4 leading-relaxed max-w-2xl">
+                <p>
+                    Operating at the intersection of modern design and alternative soundscapes. This space serves as an independent archive of ongoing sonic explorations and visual projects.
+                </p>
+                <p>
+                    All works are self-produced, mixed, and managed independently. For licensing inquiries, collaboration networks, or direct contact, reach out via the communication portal above.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full border-t border-neutral-900 py-8 bg-black/40">
+        <div class="max-w-3xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-neutral-600 font-mono">
+            <p>&copy; 2026 Warratyi Black Label. All rights reserved.</p>
+            <p class="uppercase tracking-widest">Designed to empower independent artists</p>
+        </div>
+    </footer>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</
+body>
+</html>
