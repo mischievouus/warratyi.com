@@ -48,6 +48,56 @@
 
         <!-- Hero Section -->
         <section class="text-center md:text-left py-4 flex flex-col md:flex-row items-center gap-8 border-b border-neutral-900 pb-16">
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJECT // OFFICAL</title>
+    <!-- Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons for clean, modern iconography -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom dark aesthetic refinements */
+        body {
+            background-color: #0a0a0a;
+            color: #e5e5e5;
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        .glow-effect {
+            transition: all 0.3s ease;
+        }
+        .glow-effect:hover {
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+            border-color: #404040;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #262626; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #404040; }
+    </style>
+</head>
+<body class="selection:bg-neutral-800 selection:text-white antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Header / Navigation -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-neutral-900">
+        <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="text-sm font-mono tracking-[0.3em] text-white font-bold uppercase">PROJECT //</a>
+            <nav class="flex gap-6 text-xs uppercase tracking-widest text-neutral-400 font-medium">
+                <a href="#music" class="hover:text-white transition-colors">Music</a>
+                <a href="#links" class="hover:text-white transition-colors">Links</a>
+                <a href="#about" class="hover:text-white transition-colors">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-3xl mx-auto px-6 pt-32 pb-16 flex-grow w-full space-y-24">
+
+        <!-- Hero Section -->
+        <section class="text-center md:text-left py-4 flex flex-col md:flex-row items-center gap-8 border-b border-neutral-900 pb-16">
             <!-- Project Avatar / Artwork Placeholder -->
             <div class="w-32 h-32 md:w-40 md:h-40 bg-neutral-900 border border-neutral-800 rounded-none flex items-center justify-center shrink-0 relative overflow-hidden group">
                 <i data-lucide="disc" class="w-12 h-12 text-neutral-700 group-hover:rotate-180 transition-transform duration-1000"></i>
@@ -75,9 +125,8 @@
                 <!-- Bandcamp Player Container -->
                 <div class="w-full bg-neutral-950 border border-neutral-900 p-2 rounded-none">
                     <!-- REPLACE THE IFRAME BELOW WITH YOUR BANDCAMP EMBED CODE -->
-                    <iframe style="border: 0; width: 100%; height: 42px;" src="https://bandcamp.com/EmbeddedPlayer/track=4278943479/size=small/bgcol=333333/linkcol=ffffff/transparent=true/" seamless><a href="https://warratyi.bandcamp.com/track/theatre-without-walls">Theatre Without Walls by Warratyi</a></iframe>
-                    <iframe style="border: 0; width: 350px; height: 442px;" src="https://bandcamp.com/EmbeddedPlayer/track=4278943479/size=large/bgcol=333333/linkcol=ffffff/tracklist=false/transparent=true/" seamless><a href="https://warratyi.bandcamp.com/track/theatre-without-walls">Theatre Without Walls by Warratyi</a></iframe>
-                    /*<iframe style="border: 0; width: 350px; height: 442px;" src="https://bandcamp.com/EmbeddedPlayer/track=4278943479/size=large/bgcol=333333/linkcol=ffffff/tracklist=false/transparent=true/" seamless><a href="https://warratyi.bandcamp.com/track/theatre-without-walls">Theatre Without Walls by Warratyi</a></iframe>*/
+                    <iframe style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/track=4278943479/size=large/bgcol=333333/linkcol=ffffff/tracklist=false/artwork=small/transparent=true/" seamless><a href="https://warratyi.bandcamp.com/track/theatre-without-walls">Theatre Without Walls by Warratyi</a></iframe>
+
                 </div>
 
                 <!-- Secondary Track/Album Embed -->
@@ -156,3 +205,4 @@
     </script>
 </body>
 </html>
+
